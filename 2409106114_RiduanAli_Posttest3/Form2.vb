@@ -3,7 +3,7 @@
 
 	End Sub
 
-	Private Sub lblUmurHasil_Click(sender As Object, e As EventArgs) Handles lblUmurHasil.Click, Label8.Click
+	Private Sub lblUmurHasil_Click(sender As Object, e As EventArgs) Handles lblUmurHasil.Click
 
 	End Sub
 
@@ -20,6 +20,10 @@
 	End Sub
 
 	Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
+
+	End Sub
+
+	Private Sub lblAlamatHasil_Click(sender As Object, e As EventArgs) Handles lblAlamatHasil.Click
 
 	End Sub
 End Class

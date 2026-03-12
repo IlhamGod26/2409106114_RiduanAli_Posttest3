@@ -37,39 +37,71 @@
 		End If
 	End Sub
 
-	Private Sub btnCetak_Click(sender As Object, e As EventArgs) Handles btnCetak.Click
-		Dim gender As String = If(rbLaki.Checked, "Laki-Laki", "Perempuan")
+    Private Sub btnCetak_Click(sender As Object, e As EventArgs) Handles btnCetak.Click
+        If txtNama.Text.Trim() = "" OrElse txtUmur.Text.Trim() = "" OrElse
+       txtTelp.Text.Trim() = "" OrElse txtAlamat.Text.Trim() = "" Then
 
-		Dim hobbies As String = ""
-		For Each ctrl As Control In gbHobby.Controls
-			If TypeOf ctrl Is CheckBox Then
-				Dim chk As CheckBox = DirectCast(ctrl, CheckBox)
-				If chk.Checked Then
-					hobbies &= chk.Text & ", "
-				End If
-			End If
-		Next
-		If hobbies.Length > 0 Then hobbies = hobbies.TrimEnd(", ".ToCharArray())
+            MessageBox.Show("Inputan tidak boleh kosong", "Peringatan",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
 
-		With Form2
-			.lblNamaHasil.Text = txtNama.Text
-			.lblUmurHasil.Text = txtUmur.Text & " Tahun"
-			.lblTglLahirHasil.Text = dtpLahir.Value.ToString("dd MMMM yyyy")
-			.lblTelpHasil.Text = txtTelp.Text
-			.lblAlamatHasil.Text = txtAlamat.Text
-			.lblGenderHasil.Text = gender
-			.lblHobbyHasil.Text = hobbies
+        If dtpLahir.Value = Nothing Then
+            MessageBox.Show("Inputan tidak boleh kosong", "Peringatan",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
 
-			If picProfile.Image IsNot Nothing Then
-				.picHasil.Image = picProfile.Image
-				.picHasil.SizeMode = PictureBoxSizeMode.StretchImage
-			End If
+        If rbLaki.Checked = False And rbPerempuan.Checked = False Then
+            MessageBox.Show("Inputan tidak boleh kosong", "Peringatan",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
 
-			.Show()
-		End With
-	End Sub
+        Dim hobbyTerpilih As Boolean = False
+        Dim listHobby As String = ""
 
-	Private Sub lblTglLahir_Click(sender As Object, e As EventArgs) Handles lblTglLahir.Click
+        For Each ctrl As Control In gbHobby.Controls
+            If TypeOf ctrl Is CheckBox Then
+                Dim chk As CheckBox = DirectCast(ctrl, CheckBox)
+                If chk.Checked Then
+                    hobbyTerpilih = True
+                    listHobby &= chk.Text & ", "
+                End If
+            End If
+        Next
+
+        If hobbyTerpilih = False Then
+            MessageBox.Show("Inputan tidak boleh kosong", "Peringatan",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
+
+        If picProfile.Image Is Nothing Then
+            MessageBox.Show("Inputan tidak boleh kosong", "Peringatan",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
+
+        listHobby = listHobby.TrimEnd(", ".ToCharArray())
+        Dim gender As String = If(rbLaki.Checked, "Laki-Laki", "Perempuan")
+
+        With Form2
+            .lblNamaHasil.Text = txtNama.Text
+            .lblUmurHasil.Text = txtUmur.Text & " Tahun"
+            .lblTglLahirHasil.Text = dtpLahir.Value.ToString("dd MMMM yyyy")
+            .lblTelpHasil.Text = txtTelp.Text
+            .lblAlamatHasil.Text = txtAlamat.Text
+            .lblGenderHasil.Text = gender
+            .lblHobbyHasil.Text = listHobby
+            .picHasil.Image = picProfile.Image
+            .picHasil.SizeMode = PictureBoxSizeMode.StretchImage
+
+            .Show()
+        End With
+    End Sub
+
+    Private Sub lblTglLahir_Click(sender As Object, e As EventArgs) Handles lblTglLahir.Click
 
 	End Sub
 End Class
